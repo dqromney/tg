@@ -7,7 +7,9 @@ import com.iag1.tg.repository.GroupRepositoryStub;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 
@@ -21,13 +23,15 @@ public class GroupResource {
 
     private GroupRepository groupRepository = new GroupRepositoryStub();
 
-    @GET
+    @GET @Path("test1")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Group> getAllGroups() {
+    public Response getAllGroups() {
 
         List<Group> groups = groupRepository.findAllGroups();
         System.out.println(groups.toString());
-        return groups;
+        GenericEntity<List<Group>> entity = new GenericEntity<List<Group>>(groups) {};
+
+        return Response.ok(entity).build();
     }
 
 }

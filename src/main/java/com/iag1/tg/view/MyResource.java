@@ -17,10 +17,18 @@ public class MyResource {
      *
      * @return String that will be returned as a text/plain response.
      */
-    @GET
+    @GET @Path("test1")
     @Produces({MediaType.TEXT_PLAIN})
     public String getIt() {
         return "Got it!";
+    }
+
+    @GET @Path("test2")
+//    @Produces({"application/xml", "application/json"})
+//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String test() {
+        return "Got the test!";
     }
 
 }
