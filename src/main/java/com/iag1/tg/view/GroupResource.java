@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-
 /**
  * Group Resources.
  * <p/>
@@ -39,6 +38,7 @@ public class GroupResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("{groupId}") // http://localhost:8081/tg/webapi/groups/1234
     public Group getGroup(@PathParam ("groupId") String pGroupId) {
+        System.out.println("Getting grouip ID: " + pGroupId);
         return groupRepository.findGroup(pGroupId);
     }
 }
