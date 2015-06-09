@@ -16,7 +16,7 @@ public class GroupClientTest {
     public void testGet() {
         GroupClient client = new GroupClient();
 
-        Group group = client.get("1234");
+        Group group = client.get("100");
 
         System.out.println(group);
 

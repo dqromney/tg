@@ -24,7 +24,7 @@ public class GroupResource {
 
     private GroupRepository groupRepository = new GroupRepositoryStub();
 
-    @GET @Path("test1")
+    @GET @Path("test1") // http://localhost:8081/tg/webapi/groups/test1
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllGroups() {
 
