@@ -17,10 +17,18 @@ public class GroupRepositoryStub implements GroupRepository {
 
         List<Group> groups = new ArrayList<Group>();
 
-        groups.add(new Group("Food Storage", "Topics regarding food storage."));
-        groups.add(new Group("Giants", "Topics regarding giants today and in the past."));
-        groups.add(new Group("Book of Mormon", "Topics regarding the Book of Mormon."));
+        groups.add(new Group(100L, "Food Storage", "Topics regarding food storage."));
+        groups.add(new Group(101L, "Giants", "Topics regarding giants today and in the past."));
+        groups.add(new Group(102L, "Book of Mormon", "Topics regarding the Book of Mormon."));
 
         return groups;
     }
+
+    @Override
+    public Group findGroup(String pGroupId) {
+        // Return arbitrary record.
+        Long groupId = new Long(pGroupId);
+        return new Group(new Long(groupId), "Food Storage", "Topics regarding food storage.");
+    }
+
 }

@@ -13,4 +13,6 @@ public interface GroupRepository {
 
     List<Group> findAllGroups();
 
+    Group findGroup(String pGroupId);
+
 }

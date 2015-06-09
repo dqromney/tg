@@ -6,6 +6,7 @@ import com.iag1.tg.repository.GroupRepositoryStub;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -34,4 +35,10 @@ public class GroupResource {
         return Response.ok(entity).build();
     }
 
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("{groupId}") // http://localhost:8081/tg/webapi/groups/1234
+    public Group getGroup(@PathParam ("groupId") String pGroupId) {
+        return groupRepository.findGroup(pGroupId);
+    }
 }
