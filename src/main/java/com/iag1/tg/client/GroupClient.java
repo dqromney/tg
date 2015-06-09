@@ -28,7 +28,7 @@ public class GroupClient {
         // XML
         String responseXML = target.path("groups/" + id).request().get(String.class);
         // JSON
-        String responseJSON = target.path("groups/" + id).request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
+        String responseJSON = target.path("groups/" + id).request(MediaType.APPLICATION_JSON).get(String.class);
 
         return response;
     }
