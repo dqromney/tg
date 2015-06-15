@@ -5,11 +5,14 @@ import com.iag1.tg.model.Group;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Group Client.
- *
+ * <p/>
  * Created by dqromney on 6/9/15.
  */
 public class GroupClient {
@@ -24,12 +27,23 @@ public class GroupClient {
 
         WebTarget target = client.target("http://localhost:8081/tg/webapi/");
 
-        Group response = target.path("groups/" + id).request().get(Group.class);
+        Response response = target.path("groups/" + id).request().get(Response.class);
         // XML
         String responseXML = target.path("groups/" + id).request().get(String.class);
         // JSON
         String responseJSON = target.path("groups/" + id).request(MediaType.APPLICATION_JSON).get(String.class);
 
+        if (response.getStatus() != 200) {
+            throw new RuntimeException(response.getStatus() + ":  there was an error on the server.");
+        }
+
+        return response.readEntity(Group.class);
+    }
+
+    public List<Group> get() {
+        WebTarget target = client.target("http://localhost:8081/tg/webapi/");
+        List<Group> response = target.path("groups").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Group>>() {
+        });
         return response;
     }
 }
