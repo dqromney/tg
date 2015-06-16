@@ -29,9 +29,7 @@ public class GroupResource {
 
         List<Group> groups = groupRepository.findAllGroups();
         System.out.println(groups.toString());
-        GenericEntity<List<Group>> entity = new GenericEntity<List<Group>>(groups) {};
-
-        return Response.ok(entity).build();
+        return Response.ok(new GenericEntity<List<Group>>(groups) {}).build();
     }
 
     @GET @Path("test1") // http://localhost:8081/tg/webapi/groups/test1
