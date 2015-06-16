@@ -1,6 +1,5 @@
 package com.iag1.tg.view;
 
-import com.iag1.tg.client.GroupClient;
 import com.iag1.tg.model.Group;
 import com.iag1.tg.repository.GroupRepository;
 import com.iag1.tg.repository.GroupRepositoryStub;
@@ -23,7 +22,17 @@ import java.util.List;
 public class GroupResource {
 
     private GroupRepository groupRepository = new GroupRepositoryStub();
-    private GroupClient groupClient = new GroupClient();
+
+    @GET // http://localhost:8081/tg/webapi/groups
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getAll() {
+
+        List<Group> groups = groupRepository.findAllGroups();
+        System.out.println(groups.toString());
+        GenericEntity<List<Group>> entity = new GenericEntity<List<Group>>(groups) {};
+
+        return Response.ok(entity).build();
+    }
 
     @GET @Path("test1") // http://localhost:8081/tg/webapi/groups/test1
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -40,13 +49,14 @@ public class GroupResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getGroup(@PathParam ("groupId") String pGroupId) {
 
+        System.out.println(String.format("Getting group ID: [%1$s]", pGroupId));
+
+        // Check for null and number of minimum digits
         if(pGroupId == null || pGroupId.length() < 2) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        System.out.println("Getting group ID: " + pGroupId);
-
         Group group = groupRepository.findGroup(pGroupId);
-
+        // Did we find a group?
         if(group == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

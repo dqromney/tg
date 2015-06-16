@@ -29,7 +29,10 @@ public class GroupClient {
 
         Response response = target.path("groups/" + id).request().get(Response.class);
         // XML
-        String responseXML = target.path("groups/" + id).request().get(String.class);
+        String responseXML1 = target.path("groups/" + id).request(MediaType.APPLICATION_XML_TYPE).get(String.class);
+        // or XML (default)
+        String responseXML2 = target.path("groups/" + id).request().get(String.class);
+
         // JSON
         String responseJSON = target.path("groups/" + id).request(MediaType.APPLICATION_JSON).get(String.class);
 
@@ -41,9 +44,8 @@ public class GroupClient {
     }
 
     public List<Group> get() {
-        WebTarget target = client.target("http://localhost:8081/tg/webapi/");
-        List<Group> response = target.path("groups").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Group>>() {
-        });
+        WebTarget target = client.target("http://localhost:8081/tg/webapi/groups");
+        List<Group> response = target.path("groups").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Group>>() {});
         return response;
     }
 }
