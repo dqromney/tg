@@ -8,7 +8,7 @@
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <!-- This is where jersey where to start looking for packages for Web Services -->
-            <param-value>com.iag1.tg</param-value>
+            <param-value>com.iag1</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

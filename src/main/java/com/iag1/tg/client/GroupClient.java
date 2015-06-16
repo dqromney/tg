@@ -23,29 +23,32 @@ public class GroupClient {
         this.client = ClientBuilder.newClient();
     }
 
-    public Group get(String id) {
+    public Group get(String pId) {
 
-        WebTarget target = client.target("http://localhost:8081/tg/webapi/");
+        WebTarget target = client.target("http://localhost:8082/tg/webapi/");
 
-        Response response = target.path("groups/" + id).request().get(Response.class);
+        Response response = target.path("groups/" + pId).request(MediaType.APPLICATION_JSON).get(Response.class);
         // XML
-        String responseXML1 = target.path("groups/" + id).request(MediaType.APPLICATION_XML_TYPE).get(String.class);
+        // String responseXML1 = target.path("groups/" + pId).request(MediaType.APPLICATION_XML_TYPE).get(String.class);
         // or XML (default)
-        String responseXML2 = target.path("groups/" + id).request().get(String.class);
+        // String responseXML2 = target.path("groups/" + pId).request().get(String.class);
 
         // JSON
-        String responseJSON = target.path("groups/" + id).request(MediaType.APPLICATION_JSON).get(String.class);
+        // String responseJSON = target.path("groups/" + pId).request(MediaType.APPLICATION_JSON).get(String.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException(response.getStatus() + ":  there was an error on the server.");
+            throw new RuntimeException(response.getStatus() + ": there was an error on the server.");
         }
 
         return response.readEntity(Group.class);
     }
 
     public List<Group> get() {
-        WebTarget target = client.target("http://localhost:8081/tg/webapi/groups");
-        List<Group> response = target.path("groups").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Group>>() {});
+        WebTarget target = client.target("http://localhost:8081/tg/webapi/");
+        List<Group> response = target.path("groups")
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Group>>() {
+                });
         return response;
     }
 }

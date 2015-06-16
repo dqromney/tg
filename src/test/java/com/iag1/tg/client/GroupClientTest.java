@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Group Client Test.
- *
+ * <p/>
  * Created by dqromney on 6/9/15.
  */
 public class GroupClientTest {
